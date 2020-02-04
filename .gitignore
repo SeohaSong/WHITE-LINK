@@ -1,0 +1,10 @@
+env/*
+!env/cmd.txt
+data/*
+!data/.gitkeep
+
+**/.Trash-1000
+**/.DS_Store
+**/.ipynb_checkpoints
+**/__pycache__
+**/.vscode
