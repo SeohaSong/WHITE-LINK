@@ -7,8 +7,8 @@ main() {
     if [ "${dir_path##*/}" == "core" ]
     then . "$dir_path/cmd/__reload__/main.sh" ""
     else
-        cmd=$( cat $dir_path/env/cmd.txt )
-        eval "$cmd() { . $dir_path/cmd.sh \$@; } && export -f $cmd"
+        export CMD=$( cat $dir_path/env/cmd.txt )
+        eval "$CMD() { . $dir_path/cmd.sh \$@; } && export -f $CMD"
     fi
 
     if [ -f "$file" ]
