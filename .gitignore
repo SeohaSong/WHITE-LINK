@@ -1,7 +1,7 @@
-env/*
-!env/cmd.txt
 data/*
 !data/.gitkeep
+env/*
+!env/.gitkeep
 
 **/.Trash-1000
 **/.DS_Store

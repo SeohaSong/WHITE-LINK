@@ -1,27 +1,17 @@
 main() {
     local args=( $@ )
-    local nxt_args=${args[@]:1}
-    local dir_path=$( cd $( dirname "$BASH_SOURCE" ) && pwd )
-    local file=$dir_path/cmd/$args/main.sh
-
-    if [ "${dir_path##*/}" == "core" ]
-    then . "$dir_path/cmd/__reload__/main.sh" ""
-    else
-        export CMD=$( cat $dir_path/env/cmd.txt )
-        eval "$CMD() { . $dir_path/cmd.sh \$@; } && export -f $CMD"
-    fi
-
-    if [ -f "$file" ]
-    then
-        if [[ "$args" =~ ^__ ]]
-        then . "$file" "$nxt_args"
-        else bash "$file" "$nxt_args"
-        fi
-    else
-        if [ -f "$dir_path/core/cmd/$args/main.sh" ]
-        then . "$dir_path/core/cmd.sh" ${args[@]}
-        else echo "$( ls "$dir_path/cmd" | grep -v ^__ )"
-        fi
+    local arg=${args[0]}
+    local adpath=$( dirname "${BASH_SOURCE:-${(%):-%x}}" )
+    local core=. cmd=$SHELL
+    if [ -d "$adpath/core" ]; then core=core; fi
+    if [[ "$arg" =~ ^__.*__$ ]]; then cmd=.; fi
+    local nxt_args="$core ${args[@]}"
+    . "$adpath/$core/tools/cmd/init.sh" "$nxt_args"
+    if [ -f "$__APATH__" ]
+    then $cmd "$__APATH__" "${args[@]:1}"
+    elif [ -f "$adpath/core/cmd/$arg/main.sh" ]
+    then . "$adpath/core/cmd.sh" ${args[@]}
+    else . "$adpath/$core/tools/cmd/help.sh" "$adpath"
     fi
 }
 main $@
