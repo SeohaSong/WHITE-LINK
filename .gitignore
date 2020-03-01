@@ -2,6 +2,7 @@ data/*
 !data/.gitkeep
 env/*
 !env/.gitkeep
+!env/CMD
 
 **/.Trash-1000
 **/.DS_Store
