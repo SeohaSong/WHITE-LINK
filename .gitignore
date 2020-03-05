@@ -1,3 +1,5 @@
+**/ddd
+
 data/*
 !data/.gitkeep
 env/*
