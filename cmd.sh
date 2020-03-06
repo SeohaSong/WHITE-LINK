@@ -8,12 +8,11 @@ main() {
     local nxt_args="$adpath ${args[@]}"
     . $adpath/$core/tools/cmd/init.sh "$nxt_args"
     if [ -f $adpath/cmd/$arg/main.sh ]
-    then $cmd "main() { . $adpath/cmd/$arg/main.sh; }; main"
+    then $cmd "main() { . $adpath/cmd/$arg/main.sh; } && main"
     elif [ -f $adpath/core/cmd/$arg/main.sh ]
     then . $adpath/core/cmd.sh ${args[@]}
     else . $adpath/$core/tools/cmd/help.sh
     fi
-    . $adpath/$core/tools/cmd/close.sh
+    . $adpath/$core/tools/cmd/close.sh $?
 }
 main $@
-unset -f main
