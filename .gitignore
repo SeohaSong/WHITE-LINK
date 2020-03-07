@@ -1,10 +1,10 @@
-**/ddd
+**/tmp
 
 data/*
 !data/.gitkeep
 env/*
 !env/.gitkeep
-!env/CMD
+!env/DDD
 
 **/.Trash-1000
 **/.DS_Store
